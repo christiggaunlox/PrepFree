@@ -1,26 +1,28 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import Image from "next/image"
+"use client";
+
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 export function Cta() {
   const innerCircleImage = [
-    { src: "/images/p1.svg", top: "0%", left: "50%", offsetX: 0, offsetY: 0 },
-    { src: "/images/p1.svg", top: "50%", left: "100%", offsetX: -5, offsetY: 0 },
-    { src: "/images/p1.svg", top: "100%", left: "50%", offsetX: 0, offsetY: -5 },
-    { src: "/images/p1.svg", top: "50%", left: "0%", offsetX: 5, offsetY: 0 },
+    { src: "/images/cta/p1.svg", top: "0%", left: "50%", offsetX: -17, offsetY: -15 },
+    { src: "/images/cta/p2.svg", top: "50%", left: "50%", offsetX: 85, offsetY: -17 },
+    { src: "/images/cta/p3.svg", top: "100%", left: "50%", offsetX: -18, offsetY: -25 },
+    { src: "/images/cta/p4.svg", top: "50%", left: "0%", offsetX: -10, offsetY: -20 },
   ];
 
   const largeCircleImages = [
-    { src: "/images/p1.svg", top: "0%", left: "50%", offsetX: 0, offsetY: 5 },
-    { src: "/images/p1.svg", top: "15%", left: "85%", offsetX: 0, offsetY: 0 },
-    { src: "/images/p1.svg", top: "50%", left: "100%", offsetX: -5, offsetY: 0 },
-    { src: "/images/p1.svg", top: "85%", left: "85%", offsetX: -5, offsetY: -5 },
-    { src: "/images/p1.svg", top: "100%", left: "50%", offsetX: 0, offsetY: -10 },
-    { src: "/images/p1.svg", top: "85%", left: "15%", offsetX: 5, offsetY: -5 },
-    { src: "/images/p1.svg", top: "50%", left: "0%", offsetX: 10, offsetY: 0 },
-    { src: "/images/p1.svg", top: "15%", left: "15%", offsetX: 5, offsetY: 5 },
+    { src: "/images/cta/p5.svg", top: "0%", left: "50%", offsetX: -17, offsetY: -10 },
+    { src: "/images/cta/p6.svg", top: "15%", left: "85%", offsetX: -17, offsetY: -12 },
+    { src: "/images/cta/p7.svg", top: "50%", left: "100%", offsetX: -25, offsetY: -19 },
+    { src: "/images/cta/p8.svg", top: "85%", left: "85%", offsetX: -18, offsetY: -22 },
+    { src: "/images/cta/p9.svg", top: "100%", left: "50%", offsetX: -15, offsetY: -25 },
+    { src: "/images/cta/p10.svg", top: "85%", left: "15%", offsetX: -13, offsetY: -23 },
+    { src: "/images/cta/p11.svg", top: "50%", left: "0%", offsetX: -10, offsetY: -17 },
+    { src: "/images/cta/p12.svg", top: "15%", left: "15%", offsetX: -16, offsetY: -14 },
   ];
-
 
   const features = [
     {
@@ -53,7 +55,7 @@ export function Cta() {
       description:
         "Gain access to company representatives and expand your professional reach.",
     },
-  ]
+  ];
 
   return (
     <section className="w-full bg-gradient-to-br from-[#FFFFFF] to-[#D6FFE8] py-20">
@@ -67,58 +69,77 @@ export function Cta() {
             <p className="text-gray-600 mt-3 text-sm mb-8 w-full">
               Join thousands of professionals who’ve transformed their careers with Prepfree’s comprehensive ecosystem designed for success.
             </p>
-            <div className="relative w-[360px] h-[360px] mt-10 flex items-center justify-center ">
 
-              {/* Circle */}
-              <div className="relative w-[100%] h-[100%]">
-                {/* <!-- Large Circle --> */}
-                <div
-                  className="absolute top-0 left-0 w-[100%] h-[100%] rounded-full"
+            <div className="relative w-[360px] h-[360px] mt-10 flex items-center justify-center">
+              {/* Circle Container */}
+              <div className="relative w-full h-full scale-90">
+                {/* Large Circle */}
+                <motion.div
+                  className="absolute top-0 left-0 w-full h-full rounded-full"
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3ccircle cx='50' cy='50' r='48' fill='none' stroke='%23A7CEFC' stroke-width='0.4' stroke-dasharray='3,3'/%3e%3c/svg%3e")`,
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "100% 100%",
                   }}
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
                 >
-                  {/* Map over image array */}
                   {largeCircleImages.map((person, index) => (
-                    <img
+                    <motion.div
                       key={index}
-                      src={person.src}
-                      alt={`Person ${index + 1}`}
-                      className="absolute w-9 h-9 rounded-full"
+                      className="absolute w-9 h-9 rounded-full scale-105"
                       style={{
                         top: person.top,
                         left: person.left,
-                        transform: `translate(calc(-50% + ${person.offsetX}px), calc(-50% + ${person.offsetY}px))`,
+                        x: person.offsetX,
+                        y: person.offsetY,
                       }}
-                    />
+                      animate={{ rotate: -360 }}
+                      transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
+                    >
+                      <img
+                        src={person.src}
+                        alt={`Person ${index + 1}`}
+                        className="w-full h-full rounded-full scale-105"
+                      />
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
 
-                {/* <!-- Small Circle --> */}
-                <div
+
+                {/* Inner Circle */}
+                <motion.div
                   className="absolute top-1/2 left-1/2 w-[60%] h-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full"
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3ccircle cx='50' cy='50' r='48' fill='none' stroke='%23A7CEFC' stroke-width='0.4' stroke-dasharray='4,3'/%3e%3c/svg%3e")`,
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "100% 100%",
                   }}
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
                 >
                   {innerCircleImage.map((person, index) => (
-                    <img
+                    <motion.div
                       key={index}
-                      src={person.src}
-                      alt={`Person ${index + 1}`}
-                      className="absolute w-9 h-9 rounded-full"
                       style={{
+                        position: "absolute",
                         top: person.top,
                         left: person.left,
-                        transform: `translate(calc(-50% + ${person.offsetX}px), calc(-50% + ${person.offsetY}px))`,
+                        x: person.offsetX,
+                        y: person.offsetY,
                       }}
-                    />
+                      animate={{ rotate: -360 }}
+                      transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
+                    >
+                      <img
+                        src={person.src}
+                        alt={`Person ${index + 1}`}
+                        className="w-9 h-9 rounded-full"
+                      />
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
+
               </div>
 
               {/* Center Logo */}
@@ -133,8 +154,9 @@ export function Cta() {
                 />
               </div>
 
-              <div className="absolute -right-[60%] top-1/3 -translate-y-1/2 bg-white shadow-md rounded-xl p-4 w-48 text-center">
-                <div className="flex justify-center text-yellow-500 text-xl mb-1">★★★★★</div>
+              {/* Rating Badge */}
+              <div className="absolute md:-right-[55%] top-1/3 -translate-y-1/2 bg-white shadow-md rounded-sm p-4 w-48 text-center space-y-2">
+                <div className="flex justify-center text-[#FFC728] text-xl mb-1 scale-130">★★★★★</div>
                 <p className="text-sm font-semibold text-gray-800">4.9 / 5 rating</p>
                 <p className="text-sm font-semibold text-gray-400">By Students</p>
               </div>
@@ -168,5 +190,5 @@ export function Cta() {
         </div>
       </div>
     </section>
-  )
+  );
 }
